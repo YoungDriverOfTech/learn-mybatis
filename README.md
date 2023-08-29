@@ -1,7 +1,7 @@
 # MyBatis
 ## 1. 创建第一个Mybatis项目
 1. 创建数据表，并插入数据
-2. 引入 MyBatis jar 包依赖
+2. 引入 MyBatis / Mysql jdbc 包依赖
 3. 创建并编辑核心配置文件 mybatis-config.xml
 4. 定义 POJO 类
 5. 创建并编辑 SQL 映射文件 xxxMapper.xml
