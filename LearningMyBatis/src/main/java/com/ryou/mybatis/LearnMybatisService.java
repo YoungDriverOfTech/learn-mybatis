@@ -26,5 +26,6 @@ public class LearnMybatisService {
 
         // 释放资源
         sqlSession.close();
+
     }
 }
