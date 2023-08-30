@@ -1,5 +1,6 @@
 package com.ryou.mybatis;
 
+import com.ryou.mybatis.mapper.AccountMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -20,9 +21,14 @@ public class LearnMybatisService {
         // 获取SqlSession对象（执行SQL）
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
-        // 执行SQL， namespace=AccountMapper, SQL id = selectAccount的SQL，传入参数id = 2
-        Account account = sqlSession.selectOne("AccountMapper.selectAccount", 2);
-        System.out.println(account.toString());
+        // 执行SQL(使用非mapper接口)， namespace=AccountMapper, SQL id = selectAccount的SQL，传入参数id = 2
+//        Account account = sqlSession.selectOne("AccountMapper.selectAccount", 2);
+//        System.out.println(account.toString());
+
+        // 使用mapper接口
+        AccountMapper accountMapper = sqlSession.getMapper(AccountMapper.class);
+        Account account1 = accountMapper.selectAccount(2);
+        System.out.println(account1);
 
         // 释放资源
         sqlSession.close();

@@ -14,7 +14,13 @@
             </dataSource>
         </environment>
     </environments>
+    <!--  使用非mapper  -->
+<!--    <mappers>-->
+<!--        <mapper resource="AccountMapper.xml"/>-->
+<!--    </mappers>-->
+
+    <!--  使用mapper  -->
     <mappers>
-        <mapper resource="AccountMapper.xml"/>
+        <mapper resource="com/ryou/mybatis/mapper/AccountMapper.xml"/>
     </mappers>
 </configuration>
