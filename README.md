@@ -16,3 +16,6 @@
 - SqlSession 调用与 mapper 接口对应的 mapper xml 中的 SQL 语句。
 
 ![img.png](images/getMapper.png)
+
+# 核心配置文件
+## properties
