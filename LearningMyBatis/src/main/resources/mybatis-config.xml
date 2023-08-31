@@ -5,12 +5,15 @@
 <configuration>
 
     <!--  直接在配置文件里面配置properties  -->
-    <properties>
-        <property name="jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="jdbc.url" value="jdbc:mysql://127.0.0.1:3306/school"/>
-        <property name="jdbc.username" value="root"/>
-        <property name="jdbc.password" value="root"/>
-    </properties>
+<!--    <properties>-->
+<!--        <property name="jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>-->
+<!--        <property name="jdbc.url" value="jdbc:mysql://127.0.0.1:3306/school"/>-->
+<!--        <property name="jdbc.username" value="root"/>-->
+<!--        <property name="jdbc.password" value="root"/>-->
+<!--    </properties>-->
+
+    <!--  直接在配置文件里面配置properties  -->
+    <properties resource="jdbc.no.properties"/>
 
     <environments default="development">
         <environment id="development">
