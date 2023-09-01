@@ -66,3 +66,5 @@ mybatis文件：配置 package 为包路径下的所有类配置类型别名，�
 将包内的映射器接口全部注册为映射器
 注意：如果使用方式3，要求 mapper xml 文件和 mapper 接口类所在的路径要完全相同
 ![img.png](images/all_register.png)
+
+
