@@ -68,3 +68,62 @@ mybatis文件：配置 package 为包路径下的所有类配置类型别名，�
 ![img.png](images/all_register.png)
 
 
+# Mybatis 缓存
+
+## 缓存概述
+缓存是数据交换的缓冲区（称作Cache），是临时存贮数据（一般是使用频繁的数据）的地方。当用户查询数据，首先在缓存中寻找，如果找到了则直接返回。如果找不到，则去数据的来源查找 。  
+缓存的本质就是用空间换时间，牺牲数据的实时性，以内存中的数据暂时替代从外部读取数据，达到减轻服务端压力，减少网络延迟的效果。
+
+![img.png](images/cacheoverview.png)
+
+## Mybatis 缓存分类
+
+### 一级缓存
+MyBatis 一级缓存是 SqlSession 级别的，通过同一个 SqlSession 查询的结果会被缓存。下次查询相同的数据时，就会从缓存中直接获取，不会查询数据库。  
+
+#### 概念
+- MyBatis 一级缓存是默认开启的。
+- 命中一级缓存要求以下相同：SqlSession，namespace，执行方法，SQL，参数。
+
+#### 一级缓存失效条件
+- 不同的 SqlSession
+- 同一个 SqlSession，不同的查询条件
+- 缓存被清空
+  - SqlSession 内执行了增、删、改会清空一级缓存
+  - 执行 SqlSession 的 clearCache 方法会清空一级缓存
+
+#### 一级缓存问题以及如何禁用
+一级缓存的问题：数据实时性得不到保障。如果其他 SqlSession 变更了数据，当前 SqlSession 查到的可能就不是最新数据。
+
+![img.png](images/firstcacheissue.png)
+
+强制不使用一级缓存  
+在 mybatis-config.xml 核心配置文件中增加配置
+![img.png](images/clearFirstCache.png)
+
+### 二级缓存
+
+#### 概念
+MyBatis 二级缓存是 SqlSessionFactory 级别的，通过同一个 SqlSessionFactory 创建的 SqlSession查询的结果会被缓存。下次查询相同的数据时，就会从缓存中直接获取，不会查询数据库。  
+MyBatis 二级缓存是默认关闭的。
+
+#### 怎么使用
+使用二级缓存的步骤
+- mapper.xml 文件中添加标签 <cache/>
+- POJO 类实现 Serializable 接口
+- 关闭 session，一级缓存中的数据才会写入到二级缓存
+
+#### 怎么失效
+执行增、删、改会清空二级缓存
+
+### Mybatis缓存查询顺序
+- 先查询二级缓存，命中二级缓存则直接使用二级缓存中的数据
+- 二级缓存未命中，查询一级缓存，一级缓存命中则直接使用一级缓存中的数据
+- 一级缓存未命中，查询数据库，将查询结果存入一级缓存
+- SqlSession 关闭，将一级缓存中的数据写入二级缓存
+
+![img.png](images/mybatiscacheorder.png)
+
+### 为什么不推荐使用二级缓存
+二级缓存的生命周期比一级缓存长，数据实时性更难以保障。
+![img.png](images/notusesecondcache.png)
